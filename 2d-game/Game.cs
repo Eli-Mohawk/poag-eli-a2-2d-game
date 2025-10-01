@@ -19,7 +19,7 @@ namespace MohawkGame2D
         // initiates the rainbow array
         Color[] shineColor;
 
-        // stops screens from displaying over each other
+        // booleans for each display
         bool isGameStarted = false;
 
         // start button colors because cool
@@ -29,6 +29,13 @@ namespace MohawkGame2D
 
         // keeps track of your current score (how many questions you got right)
         int playerScore = 0;
+
+        // variables for each questions completion status
+        bool question1Done = false;
+        bool question2Done = false;
+        bool question3Done = false;
+        bool question4Done = false;
+        bool question5Done = false;
 
         public void Setup()
         {
@@ -51,13 +58,52 @@ namespace MohawkGame2D
             {
                 Title();
                 StartButton();
-                QuestionsMenu();
             }
 
             // stops the menu specific items from being displayed and displays the new elements
             else
             {
+                if (question1Done == false)
+                {
+                    FirstQuestion();
+                }
 
+                else
+                {
+                    if (question2Done == false)
+                    {
+                        SecondQuestion();
+                    }
+
+                    else
+                    {
+                        if (question3Done == false)
+                        {
+                            ThirdQuesion();
+                        }
+
+                        else
+                        {
+                            if (question4Done == false)
+                            {
+                                FourthQuestion();
+                            }
+
+                            else
+                            {
+                                if (question5Done == false)
+                                {
+                                    FifthQuestion();
+                                }
+
+                                else
+                                {
+                                    EndScreen();
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -143,20 +189,45 @@ namespace MohawkGame2D
             // start button text
             Text.Draw("Start", new Vector2(267, 321));
         }
-        void QuestionsMenu()
-        {
-            /// shows all question
-            /// darked out and locked unless you are have finished all questions before it
-            /// light and unlocked if you finished it or the one before it
-            Draw.FillColor = Color.White;
-            Draw.Rectangle(new Vector2(100, 100), new Vector2(100, 100));
-        }
 
         void FirstQuestion()
         {
-            /// the question page
-            /// most of this will be copied(?) for each question
-            /// probably 5(?)
+            Text.Draw("Question #1", new Vector2(100, 100));
+            Text.Draw("How many days are in a typical year?", new Vector2(100, 250));
+
+            Draw.FillColor = mouseOff;
+            Draw.Rectangle(new Vector2(300, 300), new Vector2(100, 25));
+            
+        }
+        
+        void SecondQuestion()
+        {
+            Text.Draw("Question #2", new Vector2(100, 100));
+        }
+        
+        void ThirdQuesion()
+        {
+            Text.Draw("Question #3", new Vector2(100, 100));
+        }
+
+        void FourthQuestion()
+        {
+            Text.Draw("Question #4", new Vector2(100, 100));
+        }
+
+        void FifthQuestion()
+        {
+            Text.Draw("Question #5", new Vector2(100, 100));
+        }
+
+        void EndScreen()
+        {
+            Text.Draw("Congrats!", new Vector2(100, 100));
+        }
+
+        void Restart()
+        {
+
         }
     }
 
