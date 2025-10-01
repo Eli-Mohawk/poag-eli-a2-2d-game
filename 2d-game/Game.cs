@@ -1,6 +1,7 @@
 ﻿// Include the namespaces (code libraries) you need below.
 using System;
 using System.Numerics;
+using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MohawkGame2D
@@ -37,6 +38,9 @@ namespace MohawkGame2D
         bool question4Done = false;
         bool question5Done = false;
 
+        bool isCorrect = false;
+        bool isIncorrect = false;
+
         public void Setup()
         {
             // makes the program work
@@ -48,7 +52,7 @@ namespace MohawkGame2D
             shineColor = [red, orange, yellow, green, blue, purple, pink];
         }
 
-        public void Update()
+        public async Task Update()
         {
             Window.ClearBackground(Color.White);
             Background();
@@ -70,6 +74,8 @@ namespace MohawkGame2D
 
                 else
                 {
+                    /// correct / false screen with delay before screen 2
+                    
                     if (question2Done == false)
                     {
                         SecondQuestion();
@@ -150,11 +156,11 @@ namespace MohawkGame2D
         void StartButton()
         {
             // variables for mouse position
-            float startCheckX = Input.GetMouseX();
-            float startCheckY = Input.GetMouseY();
+            float mouseX = Input.GetMouseX();
+            float mouseY = Input.GetMouseY();
 
             // checks if your mouse is over the button
-            if (startCheckX <= 350 && startCheckX >= 250 && startCheckY <= 350 && startCheckY >= 315)
+            if (mouseX <= 350 && mouseX >= 250 && mouseY <= 350 && mouseY >= 315)
             {
                 // makes the button color change to feel reactive
                 Draw.FillColor = mouseOn;
@@ -193,10 +199,40 @@ namespace MohawkGame2D
         void FirstQuestion()
         {
             Text.Draw("Question #1", new Vector2(100, 100));
-            Text.Draw("How many days are in a typical year?", new Vector2(100, 250));
+            Text.Draw("How many days are in a typical year?", new Vector2(100, 150));
 
-            Draw.FillColor = mouseOff;
-            Draw.Rectangle(new Vector2(300, 300), new Vector2(100, 25));
+            float mouseXx = Input.GetMouseX();
+            float mouseYy = Input.GetMouseY();
+
+            if (mouseXx >= 150 && mouseXx <= 250 && mouseYy >= 250 && mouseYy <= 275)
+            {
+                Draw.FillColor = mouseOn;
+
+                if (Input.IsMouseButtonDown(MouseInput.Left))
+                {
+                    Draw.FillColor = mouseHeld;
+                }
+
+                else if (Input.IsMouseButtonReleased(MouseInput.Left))
+                {
+                    playerScore += 1;
+                    isCorrect = true;
+                    question1Done = true;
+                }
+
+                else
+                {
+
+                }
+            }
+
+            else
+            {
+                Draw.FillColor = mouseOff;
+            }
+            Draw.LineSize = 1;
+            Draw.LineColor= Color.White;
+            Draw.Rectangle(new Vector2(150, 250), new Vector2(100, 25));
             
         }
         
@@ -226,6 +262,21 @@ namespace MohawkGame2D
         }
 
         void Restart()
+        {
+
+        }
+
+        async void Correct()
+        {
+            Text.Draw("congrats!", new Vector2(300, 300));
+        }
+
+        async void Incorrect()
+        {
+
+        }
+
+        void Score()
         {
 
         }
