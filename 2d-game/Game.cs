@@ -19,6 +19,17 @@ namespace MohawkGame2D
         // initiates the rainbow array
         Color[] shineColor;
 
+        // stops screens from displaying over each other
+        bool isGameStarted = false;
+
+        // start button colors because cool
+        Color mouseOff = new Color(100, 100, 100);
+        Color mouseOn = new Color(75, 75, 75);
+        Color mouseHeld = new Color(50, 50, 50);
+
+        // keeps track of your current score (how many questions you got right)
+        int playerScore = 0;
+
         public void Setup()
         {
             // makes the program work
@@ -33,11 +44,21 @@ namespace MohawkGame2D
         public void Update()
         {
             Window.ClearBackground(Color.White);
-            
-            // elements that appear when you launch the game
             Background();
-            Title();
-            StartButton();
+
+            // displays menu until you press start
+            if (isGameStarted == false)
+            {
+                Title();
+                StartButton();
+                QuestionsMenu();
+            }
+
+            // stops the menu specific items from being displayed and displays the new elements
+            else
+            {
+
+            }
         }
 
         void Background()
@@ -82,7 +103,60 @@ namespace MohawkGame2D
 
         void StartButton()
         {
-            // button that checks if you click it and starts the game when you do
+            // variables for mouse position
+            float startCheckX = Input.GetMouseX();
+            float startCheckY = Input.GetMouseY();
+
+            // checks if your mouse is over the button
+            if (startCheckX <= 350 && startCheckX >= 250 && startCheckY <= 350 && startCheckY >= 315)
+            {
+                // makes the button color change to feel reactive
+                Draw.FillColor = mouseOn;
+
+                // checks if left click is down when you are over the button
+                if (Input.IsMouseButtonDown(MouseInput.Left))
+                {
+                    Draw.FillColor = mouseHeld;
+                }
+
+                // starts the game when you let go off left click over the start button
+                else if (Input.IsMouseButtonReleased(MouseInput.Left))
+                {
+                    isGameStarted = true;
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                Draw.FillColor = mouseOff;
+            }
+
+            // makes the start button
+            // its here so i can make its color different based on your mouse
+            Draw.LineColor = Color.White;
+            Draw.LineSize = 1;
+            Draw.Rectangle(new Vector2(250, 315), new Vector2(100, 35));
+
+            // start button text
+            Text.Draw("Start", new Vector2(267, 321));
+        }
+        void QuestionsMenu()
+        {
+            /// shows all question
+            /// darked out and locked unless you are have finished all questions before it
+            /// light and unlocked if you finished it or the one before it
+            Draw.FillColor = Color.White;
+            Draw.Rectangle(new Vector2(100, 100), new Vector2(100, 100));
+        }
+
+        void FirstQuestion()
+        {
+            /// the question page
+            /// most of this will be copied(?) for each question
+            /// probably 5(?)
         }
     }
 
