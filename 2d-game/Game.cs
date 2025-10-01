@@ -55,10 +55,10 @@ namespace MohawkGame2D
             shineColor = [red, orange, yellow, green, blue, purple, pink];
 
             // options of your answers
-            boxA = new string[366, ];
-            boxB = new string[365, ];
-            boxC = new string[700, ];
-            boxD = new string[364, ];
+            boxA = new string[366];
+            boxB = new string[365];
+            boxC = new string[700];
+            boxD = new string[364];
         }
 
         public void Update()
@@ -227,21 +227,16 @@ namespace MohawkGame2D
  
             /// broken
             Text.Color = Color.White;
-            Text.Size = 15;
-            Text.Draw($"{boxA[1]}", new Vector2(125, 320));
-            Text.Draw($"{boxB[1]}", new Vector2(385, 320));
-            Text.Draw($"{boxC[1]}", new Vector2(125, 450));
-            Text.Draw($"{boxD[1]}", new Vector2(385, 450));
+            Text.Size = 40;
+            Text.Draw($"{boxA[0]}", new Vector2(125, 320));
+            Text.Draw($"{boxB[0]}", new Vector2(385, 320));
+            Text.Draw($"{boxC[0]}", new Vector2(125, 450));
+            Text.Draw($"{boxD[0]}", new Vector2(385, 450));
         }
         
         void SecondQuestion()
         {
             Text.Draw("Question #2", new Vector2(100, 100));
-
-            Answer1();
-            Answer2();
-            Answer3();
-            Answer4();
         }
         
         void ThirdQuesion()
