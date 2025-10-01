@@ -38,8 +38,11 @@ namespace MohawkGame2D
         bool question4Done = false;
         bool question5Done = false;
 
-        bool isCorrect = false;
-        bool isIncorrect = false;
+        // array for question responses
+        string[] boxA;
+        string[] boxB;
+        string[] boxC;
+        string[] boxD;
 
         public void Setup()
         {
@@ -50,12 +53,28 @@ namespace MohawkGame2D
 
             // adds custom colors to the rainbow array
             shineColor = [red, orange, yellow, green, blue, purple, pink];
+
+            // options of your answers
+            boxA = new string[366, ];
+            boxB = new string[365, ];
+            boxC = new string[700, ];
+            boxD = new string[364, ];
         }
 
-        public async Task Update()
+        public void Update()
         {
             Window.ClearBackground(Color.White);
             Background();
+
+            Draw.LineColor = Color.Red;
+            Draw.LineSize = 1;
+            Draw.Line(new Vector2(300, 0), new Vector2(300, 800));
+            Draw.Line(new Vector2(0, 400), new Vector2(600, 400));
+
+
+
+
+
 
             // displays menu until you press start
             if (isGameStarted == false)
@@ -67,15 +86,15 @@ namespace MohawkGame2D
             // stops the menu specific items from being displayed and displays the new elements
             else
             {
+                Score();
+
                 if (question1Done == false)
                 {
                     FirstQuestion();
                 }
 
                 else
-                {
-                    /// correct / false screen with delay before screen 2
-                    
+                {   
                     if (question2Done == false)
                     {
                         SecondQuestion();
@@ -198,47 +217,31 @@ namespace MohawkGame2D
 
         void FirstQuestion()
         {
-            Text.Draw("Question #1", new Vector2(100, 100));
-            Text.Draw("How many days are in a typical year?", new Vector2(100, 150));
+            Text.Size = 50;
+            Text.Draw("Question #1", new Vector2(150, 80));
 
-            float mouseXx = Input.GetMouseX();
-            float mouseYy = Input.GetMouseY();
+            Text.Size = 23;
+            Text.Draw("How many days are in a typical year?", new Vector2(83, 150));
 
-            if (mouseXx >= 150 && mouseXx <= 250 && mouseYy >= 250 && mouseYy <= 275)
-            {
-                Draw.FillColor = mouseOn;
-
-                if (Input.IsMouseButtonDown(MouseInput.Left))
-                {
-                    Draw.FillColor = mouseHeld;
-                }
-
-                else if (Input.IsMouseButtonReleased(MouseInput.Left))
-                {
-                    playerScore += 1;
-                    isCorrect = true;
-                    question1Done = true;
-                }
-
-                else
-                {
-
-                }
-            }
-
-            else
-            {
-                Draw.FillColor = mouseOff;
-            }
-            Draw.LineSize = 1;
-            Draw.LineColor= Color.White;
-            Draw.Rectangle(new Vector2(150, 250), new Vector2(100, 25));
-            
+            AnswerBoxA(); AnswerBoxB(); AnswerBoxC(); AnswerBoxD();
+ 
+            /// broken
+            Text.Color = Color.White;
+            Text.Size = 15;
+            Text.Draw($"{boxA[1]}", new Vector2(125, 320));
+            Text.Draw($"{boxB[1]}", new Vector2(385, 320));
+            Text.Draw($"{boxC[1]}", new Vector2(125, 450));
+            Text.Draw($"{boxD[1]}", new Vector2(385, 450));
         }
         
         void SecondQuestion()
         {
             Text.Draw("Question #2", new Vector2(100, 100));
+
+            Answer1();
+            Answer2();
+            Answer3();
+            Answer4();
         }
         
         void ThirdQuesion()
@@ -278,7 +281,241 @@ namespace MohawkGame2D
 
         void Score()
         {
+            Draw.LineSize = 1;
+            Draw.LineColor = Color.Gray;
+            Draw.FillColor = Color.DarkGray;
+            Draw.Rectangle(new Vector2(395, 0), new Vector2(205, 33));
 
+            Text.Size = 15;
+            Text.Draw($"Your current score is: {playerScore}", new Vector2(401, 9));
+        }
+
+        void AnswerBoxA()
+        {
+            float question1X = Input.GetMouseX();
+            float question1Y = Input.GetMouseY();
+
+            if (question1X >= 125 && question1X <= 225 && question1Y >= 320 && question1Y <= 350)
+            {
+                Draw.FillColor = mouseOn;
+
+                if (Input.IsMouseButtonDown(MouseInput.Left))
+                {
+                    Draw.FillColor = mouseHeld;
+                }
+
+                else if (Input.IsMouseButtonReleased(MouseInput.Left))
+                {
+                    if (question4Done == true)
+                    {
+                        question5Done = true;
+                    }
+
+                    else if (question3Done == true)
+                    {
+                        question4Done = true;
+                    }
+
+                    else if (question2Done == true)
+                    {
+                        question3Done = true;
+                    }
+
+                    else if (question1Done == true)
+                    {
+                        question2Done = true;
+                    }
+                    else
+                    {
+                        question1Done = true;
+                    }
+                }
+
+                else
+                {
+
+                }
+            }
+
+            else
+            {
+                Draw.FillColor = mouseOff;
+            }
+
+            Draw.LineSize = 1;
+            Draw.LineColor = Color.White;
+            Draw.Rectangle(new Vector2(125, 320), new Vector2(100, 30));
+        }
+
+        void AnswerBoxB()
+        {
+            float question2X = Input.GetMouseX();
+            float question2Y = Input.GetMouseY();
+
+            if (question2X >= 385 && question2X <= 485 && question2Y >= 320 && question2Y <= 350)
+            {
+                Draw.FillColor = mouseOn;
+
+                if (Input.IsMouseButtonDown(MouseInput.Left))
+                {
+                    Draw.FillColor = mouseHeld;
+                }
+
+                else if (Input.IsMouseButtonReleased(MouseInput.Left))
+                {
+                    if (question4Done == true)
+                    {
+                        question5Done = true;
+                    }
+
+                    else if (question3Done == true)
+                    {
+                        question4Done = true;
+                    }
+
+                    else if (question2Done == true)
+                    {
+                        question3Done = true;
+                    }
+
+                    else if (question1Done == true)
+                    {
+                        question2Done = true;
+                    }
+                    else
+                    {
+                        question1Done = true;
+                    }
+                }
+
+                else
+                {
+
+                }
+            }
+
+            else
+            {
+                Draw.FillColor = mouseOff;
+            }
+
+            Draw.LineSize = 1;
+            Draw.LineColor = Color.White;
+            Draw.Rectangle(new Vector2(385, 320), new Vector2(100, 30));
+        }
+
+        void AnswerBoxC()
+        {
+            float question3X = Input.GetMouseX();
+            float question3Y = Input.GetMouseY();
+
+            if (question3X >= 125 && question3X <= 225 && question3Y >= 450 && question3Y <= 480)
+            {
+                Draw.FillColor = mouseOn;
+
+                if (Input.IsMouseButtonDown(MouseInput.Left))
+                {
+                    Draw.FillColor = mouseHeld;
+                }
+
+                else if (Input.IsMouseButtonReleased(MouseInput.Left))
+                {
+                    if (question4Done == true)
+                    {
+                        question5Done = true;
+                    }
+
+                    else if (question3Done == true)
+                    {
+                        question4Done = true;
+                    }
+
+                    else if (question2Done == true)
+                    {
+                        question3Done = true;
+                    }
+
+                    else if (question1Done == true)
+                    {
+                        question2Done = true;
+                    }
+                    else
+                    {
+                        question1Done = true;
+                    }
+                }
+
+                else
+                {
+
+                }
+            }
+
+            else
+            {
+                Draw.FillColor = mouseOff;
+            }
+
+            Draw.LineSize = 1;
+            Draw.LineColor = Color.White;
+            Draw.Rectangle(new Vector2(125, 450), new Vector2(100, 30));
+        }
+
+        void AnswerBoxD()
+        {
+            float question4X = Input.GetMouseX();
+            float question4Y = Input.GetMouseY();
+
+            if (question4X >= 385 && question4X <= 485 && question4Y >= 450 && question4Y <= 480)
+            {
+                Draw.FillColor = mouseOn;
+
+                if (Input.IsMouseButtonDown(MouseInput.Left))
+                {
+                    Draw.FillColor = mouseHeld;
+                }
+
+                else if (Input.IsMouseButtonReleased(MouseInput.Left))
+                {
+                    if (question4Done == true)
+                    {
+                        question5Done = true;
+                    }
+
+                    else if (question3Done == true)
+                    {
+                        question4Done = true;
+                    }
+
+                    else if (question2Done == true)
+                    {
+                        question3Done = true;
+                    }
+
+                    else if (question1Done == true)
+                    {
+                        question2Done = true;
+                    }
+                    else
+                    {
+                        question1Done = true;
+                    }
+                }
+
+                else
+                {
+
+                }
+            }
+
+            else
+            {
+                Draw.FillColor = mouseOff;
+            }
+
+            Draw.LineSize = 1;
+            Draw.LineColor = Color.White;
+            Draw.Rectangle(new Vector2(385, 450), new Vector2(100, 30));
         }
     }
 
