@@ -1,6 +1,7 @@
 ﻿// Include the namespaces (code libraries) you need below.
 using System;
 using System.Numerics;
+using System.Threading;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -44,6 +45,11 @@ namespace MohawkGame2D
         string[] boxC;
         string[] boxD;
 
+        // bonus text for restarting
+        bool didWin = false;
+        bool didEnd = false;
+        bool didLose = false;
+
         public void Setup()
         {
             // makes the program work
@@ -60,26 +66,45 @@ namespace MohawkGame2D
             Window.ClearBackground(Color.White);
             Background();
 
-            Draw.LineColor = Color.Red;
-            Draw.LineSize = 1;
-            Draw.Line(new Vector2(300, 0), new Vector2(300, 800));
-            Draw.Line(new Vector2(0, 400), new Vector2(600, 400));
-
             // these are here so playerScore will update for q3 (idk how else to do it)
             // options of your answers
-            boxA = ["366", "10", $"{playerScore}",];
-            boxB = ["365", "8", "5",];
-            boxC = ["700", "12", null,];
-            boxD = ["364", "11", null,];
-            // correct answers (so i dont forget)
-            // B-D-A-t-t
-
+            boxA = ["366", "10", $"{playerScore}", "mohawk", "easy"];
+            boxB = ["365", "8", "5", "mowhawk", "meh"];
+            boxC = ["700", "12", null, "Mohawk", "fine"];
+            boxD = ["364", "11", null, "Mowhawk", "hard"];
 
             // displays menu until you press start
             if (isGameStarted == false)
             {
                 Title();
                 StartButton();
+
+                // bonus text
+                if (didWin == true)
+                {
+                    Text.Size = 23;
+                    Text.Color = red;
+                    Text.Draw("Bro... you already won.", 155, 380);
+                }
+
+                else if (didLose == true)
+                {
+                    Text.Size = 23;
+                    Text.Color = red;
+                    Text.Draw("Yeah, I would hope you try again.", 105, 380);
+                }
+
+                else if (didEnd == true)
+                {
+                    Text.Size = 23;
+                    Text.Color = red;
+                    Text.Draw("Please get more right this time.", 105, 380);
+                }
+
+                else
+                {
+
+                }
             }
 
             // stops the menu specific items from being displayed and displays the new elements
@@ -122,7 +147,20 @@ namespace MohawkGame2D
 
                                 else
                                 {
-                                    EndScreen();
+                                    if (playerScore == 5)
+                                    {
+                                        WinScreen();
+                                    }
+
+                                    else if (playerScore >= 1)
+                                    {
+                                        EndScreen();
+                                    }
+
+                                    else
+                                    {
+                                        LoseScreen();
+                                    }
                                 }
                             }
                         }
@@ -130,7 +168,7 @@ namespace MohawkGame2D
                 }
             }
         }
-
+        
         void Background()
         {
             // makes a rectangle with a blue border
@@ -193,6 +231,9 @@ namespace MohawkGame2D
                 else if (Input.IsMouseButtonReleased(MouseInput.Left))
                 {
                     isGameStarted = true;
+                    didWin = false;
+                    didLose = false;
+                    didEnd = false;
                 }
                 else
                 {
@@ -246,13 +287,11 @@ namespace MohawkGame2D
             Text.Draw("How many different colors are", new Vector2(120, 150));
             Text.Draw("currently on screen?", new Vector2(167, 180));
 
-            // places the option boxes
             AnswerBoxA(); 
             AnswerBoxB(); 
             AnswerBoxC(); 
             AnswerBoxD();
 
-            // displays the q1 options
             Text.Color = Color.White;
             Text.Size = 25;
             Text.Draw($"{boxA[1]}", new Vector2(160, 325));
@@ -269,15 +308,13 @@ namespace MohawkGame2D
             Text.Size = 23;
             Text.Draw("What is your score?", new Vector2(180, 150));
 
-            // places the option boxes
             AnswerBoxA();
             AnswerBoxB();
 
-            // displays the q1 options
             Text.Color = Color.White;
             Text.Size = 25;
             Text.Draw($"{boxA[2]}", new Vector2(165, 325));
-            Text.Draw($"{boxB[2]}", new Vector2(425, 325));
+            Text.Draw($"{boxB[2]}", new Vector2(430, 325));
         }
 
         void FourthQuestion()
@@ -286,35 +323,116 @@ namespace MohawkGame2D
             Text.Draw("Question #4", new Vector2(150, 80));
 
             Text.Size = 23;
-            Text.Draw("TEMP", new Vector2(83, 150));
+            Text.Draw("What is the name of our college?", new Vector2(97, 150));
 
-            // places the option boxes
             AnswerBoxA();
             AnswerBoxB();
             AnswerBoxC();
             AnswerBoxD();
 
-            // displays the q1 options
             Text.Color = Color.White;
             Text.Size = 25;
-            Text.Draw($"{boxA[3]}", new Vector2(153, 325));
-            Text.Draw($"{boxB[3]}", new Vector2(413, 325));
-            Text.Draw($"{boxC[3]}", new Vector2(153, 455));
-            Text.Draw($"{boxD[3]}", new Vector2(413, 455));
+            Text.Draw($"{boxA[3]}", new Vector2(135, 325));
+            Text.Draw($"{boxB[3]}", new Vector2(390, 325));
+            Text.Draw($"{boxC[3]}", new Vector2(135, 455));
+            Text.Draw($"{boxD[3]}", new Vector2(390, 455));
         }
 
         void FifthQuestion()
         {
-            Text.Draw("Question #5", new Vector2(100, 100));
+            Text.Size = 50;
+            Text.Draw("Question #5", new Vector2(150, 80));
+
+            Text.Size = 23;
+            Text.Draw("How hard was this quiz?", new Vector2(97, 150));
+
+            AnswerBoxA();
+            AnswerBoxB();
+            AnswerBoxC();
+            AnswerBoxD();
+
+            Text.Color = Color.White;
+            Text.Size = 25;
+            Text.Draw($"{boxA[4]}", new Vector2(148, 324));
+            Text.Draw($"{boxB[4]}", new Vector2(412, 325));
+            Text.Draw($"{boxC[4]}", new Vector2(148, 455));
+            Text.Draw($"{boxD[4]}", new Vector2(406, 455));
         }
 
         void EndScreen()
         {
-            Text.Draw("Congrats!", new Vector2(100, 100));
+            Text.Size = 40;
+            Text.Color = blue;
+            Text.Draw("WOW! You didn't lose!", 80, 80);
+
+            Restart();
+
+            didEnd = true;
+        }
+
+        void WinScreen()
+        {
+            Text.Size = 40;
+            Text.Color = yellow;
+            Text.Draw("Congrats! You won!", 110, 80);
+
+            Restart();
+
+            didWin = true;
+        }
+
+        void LoseScreen()
+        {
+            Text.Size = 40;
+            Text.Color = red;
+            Text.Draw("You lost.", 200, 80);
+
+            Restart();
+
+            didLose = true;
         }
 
         void Restart()
         {
+            float restartX = Input.GetMouseX();
+            float restartY = Input.GetMouseY();
+
+            if (restartX <= 350 && restartX >= 250 && restartY <= 350 && restartY >= 315)
+            {
+                Draw.FillColor = mouseOn;
+
+                if (Input.IsMouseButtonDown(MouseInput.Left))
+                {
+                    Draw.FillColor = mouseHeld;
+                }
+
+                else if (Input.IsMouseButtonReleased(MouseInput.Left))
+                {
+                    isGameStarted = false;
+                    question1Done = false;
+                    question2Done = false;
+                    question3Done = false;
+                    question4Done = false;
+                    question5Done = false;
+                    playerScore = 0;
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                Draw.FillColor = mouseOff;
+            }
+
+            Draw.LineColor = Color.White;
+            Draw.LineSize = 1;
+            Draw.Rectangle(new Vector2(245, 315), new Vector2(110, 35));
+
+            Text.Size = 23;
+            Text.Color = Color.White;
+            Text.Draw("Restart?", 251, 324);
 
         }
 
@@ -472,6 +590,8 @@ namespace MohawkGame2D
                     else if (question3Done == true)
                     {
                         question4Done = true;
+
+                        playerScore += 1;
                     }
 
                     else if (question2Done == true)
@@ -524,6 +644,8 @@ namespace MohawkGame2D
                     if (question4Done == true)
                     {
                         question5Done = true;
+
+                        playerScore += 1;
                     }
 
                     else if (question3Done == true)
