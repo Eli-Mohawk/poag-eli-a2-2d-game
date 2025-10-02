@@ -53,12 +53,6 @@ namespace MohawkGame2D
 
             // adds custom colors to the rainbow array
             shineColor = [red, orange, yellow, green, blue, purple, pink];
-
-            // options of your answers
-            boxA = new string[366];
-            boxB = new string[365];
-            boxC = new string[700];
-            boxD = new string[364];
         }
 
         public void Update()
@@ -71,9 +65,14 @@ namespace MohawkGame2D
             Draw.Line(new Vector2(300, 0), new Vector2(300, 800));
             Draw.Line(new Vector2(0, 400), new Vector2(600, 400));
 
-
-
-
+            // these are here so playerScore will update for q3 (idk how else to do it)
+            // options of your answers
+            boxA = ["366", "10", $"{playerScore}",];
+            boxB = ["365", "8", "5",];
+            boxC = ["700", "12", null,];
+            boxD = ["364", "11", null,];
+            // correct answers (so i dont forget)
+            // B-D-A-t-t
 
 
             // displays menu until you press start
@@ -212,7 +211,7 @@ namespace MohawkGame2D
             Draw.Rectangle(new Vector2(250, 315), new Vector2(100, 35));
 
             // start button text
-            Text.Draw("Start", new Vector2(267, 321));
+            Text.Draw("Start", new Vector2(267, 323));
         }
 
         void FirstQuestion()
@@ -223,30 +222,85 @@ namespace MohawkGame2D
             Text.Size = 23;
             Text.Draw("How many days are in a typical year?", new Vector2(83, 150));
 
-            AnswerBoxA(); AnswerBoxB(); AnswerBoxC(); AnswerBoxD();
+            // places the option boxes
+            AnswerBoxA(); 
+            AnswerBoxB(); 
+            AnswerBoxC(); 
+            AnswerBoxD();
  
-            /// broken
+            // displays the q1 options
             Text.Color = Color.White;
-            Text.Size = 40;
-            Text.Draw($"{boxA[0]}", new Vector2(125, 320));
-            Text.Draw($"{boxB[0]}", new Vector2(385, 320));
-            Text.Draw($"{boxC[0]}", new Vector2(125, 450));
-            Text.Draw($"{boxD[0]}", new Vector2(385, 450));
+            Text.Size = 25;
+            Text.Draw($"{boxA[0]}", new Vector2(153, 325));
+            Text.Draw($"{boxB[0]}", new Vector2(413, 325));
+            Text.Draw($"{boxC[0]}", new Vector2(153, 455));
+            Text.Draw($"{boxD[0]}", new Vector2(413, 455));
         }
         
         void SecondQuestion()
         {
-            Text.Draw("Question #2", new Vector2(100, 100));
+            Text.Size = 50;
+            Text.Draw("Question #2", new Vector2(150, 80));
+
+            Text.Size = 23;
+            Text.Draw("How many different colors are", new Vector2(120, 150));
+            Text.Draw("currently on screen?", new Vector2(167, 180));
+
+            // places the option boxes
+            AnswerBoxA(); 
+            AnswerBoxB(); 
+            AnswerBoxC(); 
+            AnswerBoxD();
+
+            // displays the q1 options
+            Text.Color = Color.White;
+            Text.Size = 25;
+            Text.Draw($"{boxA[1]}", new Vector2(160, 325));
+            Text.Draw($"{boxB[1]}", new Vector2(427, 325));
+            Text.Draw($"{boxC[1]}", new Vector2(160, 455));
+            Text.Draw($"{boxD[1]}", new Vector2(421, 455));
         }
         
         void ThirdQuesion()
         {
-            Text.Draw("Question #3", new Vector2(100, 100));
+            Text.Size = 50;
+            Text.Draw("Question #3", new Vector2(150, 80));
+
+            Text.Size = 23;
+            Text.Draw("What is your score?", new Vector2(180, 150));
+
+            // places the option boxes
+            AnswerBoxA();
+            AnswerBoxB();
+
+            // displays the q1 options
+            Text.Color = Color.White;
+            Text.Size = 25;
+            Text.Draw($"{boxA[2]}", new Vector2(165, 325));
+            Text.Draw($"{boxB[2]}", new Vector2(425, 325));
         }
 
         void FourthQuestion()
         {
-            Text.Draw("Question #4", new Vector2(100, 100));
+            Text.Size = 50;
+            Text.Draw("Question #4", new Vector2(150, 80));
+
+            Text.Size = 23;
+            Text.Draw("TEMP", new Vector2(83, 150));
+
+            // places the option boxes
+            AnswerBoxA();
+            AnswerBoxB();
+            AnswerBoxC();
+            AnswerBoxD();
+
+            // displays the q1 options
+            Text.Color = Color.White;
+            Text.Size = 25;
+            Text.Draw($"{boxA[3]}", new Vector2(153, 325));
+            Text.Draw($"{boxB[3]}", new Vector2(413, 325));
+            Text.Draw($"{boxC[3]}", new Vector2(153, 455));
+            Text.Draw($"{boxD[3]}", new Vector2(413, 455));
         }
 
         void FifthQuestion()
@@ -260,16 +314,6 @@ namespace MohawkGame2D
         }
 
         void Restart()
-        {
-
-        }
-
-        async void Correct()
-        {
-            Text.Draw("congrats!", new Vector2(300, 300));
-        }
-
-        async void Incorrect()
         {
 
         }
@@ -301,6 +345,7 @@ namespace MohawkGame2D
 
                 else if (Input.IsMouseButtonReleased(MouseInput.Left))
                 {
+
                     if (question4Done == true)
                     {
                         question5Done = true;
@@ -314,6 +359,8 @@ namespace MohawkGame2D
                     else if (question2Done == true)
                     {
                         question3Done = true;
+
+                        playerScore += 1;
                     }
 
                     else if (question1Done == true)
@@ -380,6 +427,8 @@ namespace MohawkGame2D
                     else
                     {
                         question1Done = true;
+
+                        playerScore += 1;
                     }
                 }
 
@@ -490,6 +539,8 @@ namespace MohawkGame2D
                     else if (question1Done == true)
                     {
                         question2Done = true;
+
+                        playerScore += 1;
                     }
                     else
                     {
