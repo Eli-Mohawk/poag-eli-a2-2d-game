@@ -9,6 +9,10 @@ namespace MohawkGame2D
 {
     public class Game
     {
+        // keeps track of your current score (how many questions you got right)
+        int playerScore = 0;
+
+        #region Rainbow colors / array
         // custom colors for the background "shine" lines
         Color red = new Color(255, 0, 0);
         Color orange = new Color(255, 109, 36);
@@ -17,20 +21,21 @@ namespace MohawkGame2D
         Color blue = new Color(31, 230, 237);
         Color purple = new Color(132, 47, 212);
         Color pink = new Color(227, 34, 204);
-
+       
         // initiates the rainbow array
         Color[] shineColor;
+        #endregion
 
-        // booleans for each display
-        bool isGameStarted = false;
-
+        #region Button colors
         // start button colors because cool
         Color mouseOff = new Color(100, 100, 100);
         Color mouseOn = new Color(75, 75, 75);
         Color mouseHeld = new Color(50, 50, 50);
+        #endregion
 
-        // keeps track of your current score (how many questions you got right)
-        int playerScore = 0;
+        #region Screen booleans
+        // booleans for each display
+        bool isGameStarted = false;
 
         // variables for each questions completion status
         bool question1Done = false;
@@ -39,17 +44,21 @@ namespace MohawkGame2D
         bool question4Done = false;
         bool question5Done = false;
 
+        // bonus text for restarting
+        bool didWin = false;
+        bool didEnd = false;
+        bool didLose = false;
+        #endregion
+
+        #region Responses
         // array for question responses
         string[] boxA;
         string[] boxB;
         string[] boxC;
         string[] boxD;
+        #endregion
 
-        // bonus text for restarting
-        bool didWin = false;
-        bool didEnd = false;
-        bool didLose = false;
-
+        #region Startup / color array
         public void Setup()
         {
             // makes the program work
@@ -60,19 +69,23 @@ namespace MohawkGame2D
             // adds custom colors to the rainbow array
             shineColor = [red, orange, yellow, green, blue, purple, pink];
         }
+        #endregion
 
         public void Update()
         {
             Window.ClearBackground(Color.White);
             Background();
 
+            #region Response array
             // these are here so playerScore will update for q3 (idk how else to do it)
             // options of your answers
             boxA = ["366", "10", $"{playerScore}", "mohawk", "easy"];
             boxB = ["365", "8", "5", "mowhawk", "meh"];
             boxC = ["700", "12", null, "Mohawk", "fine"];
             boxD = ["364", "11", null, "Mowhawk", "hard"];
+            #endregion
 
+            #region Title + NG+
             // displays menu until you press start
             if (isGameStarted == false)
             {
@@ -106,7 +119,9 @@ namespace MohawkGame2D
 
                 }
             }
+            #endregion
 
+            #region Screens
             // stops the menu specific items from being displayed and displays the new elements
             else
             {
@@ -167,8 +182,10 @@ namespace MohawkGame2D
                     }
                 }
             }
+            #endregion
         }
-        
+
+        #region Title screen
         void Background()
         {
             // makes a rectangle with a blue border
@@ -254,7 +271,9 @@ namespace MohawkGame2D
             // start button text
             Text.Draw("Start", new Vector2(267, 323));
         }
+        #endregion
 
+        #region Questions
         void FirstQuestion()
         {
             Text.Size = 50;
@@ -358,7 +377,9 @@ namespace MohawkGame2D
             Text.Draw($"{boxC[4]}", new Vector2(148, 455));
             Text.Draw($"{boxD[4]}", new Vector2(406, 455));
         }
+        #endregion
 
+        #region End screens
         void EndScreen()
         {
             Text.Size = 40;
@@ -391,7 +412,9 @@ namespace MohawkGame2D
 
             didLose = true;
         }
+        #endregion
 
+        #region Extras
         void Restart()
         {
             float restartX = Input.GetMouseX();
@@ -446,7 +469,9 @@ namespace MohawkGame2D
             Text.Size = 15;
             Text.Draw($"Your current score is: {playerScore}", new Vector2(401, 9));
         }
+        #endregion
 
+        #region Answer boxes
         void AnswerBoxA()
         {
             float question1X = Input.GetMouseX();
@@ -685,6 +710,7 @@ namespace MohawkGame2D
             Draw.LineColor = Color.White;
             Draw.Rectangle(new Vector2(385, 450), new Vector2(100, 30));
         }
+        #endregion
     }
 
 }
