@@ -6,6 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
+
+
+// check mouse pos
 namespace MohawkGame2D
 {
     public class Game
@@ -387,8 +390,6 @@ namespace MohawkGame2D
             Text.Color = blue;
             Text.Draw("WOW! You didn't lose!", 80, 80);
 
-            playerScore = -1;
-
             Restart();
 
             didEnd = true;
@@ -400,8 +401,6 @@ namespace MohawkGame2D
             Text.Color = yellow;
             Text.Draw("Congrats! You won!", 110, 80);
 
-            playerScore = -1;
-
             Restart();
 
             didWin = true;
@@ -412,8 +411,6 @@ namespace MohawkGame2D
             Text.Size = 40;
             Text.Color = red;
             Text.Draw("You lost.", 200, 80);
-
-            playerScore = -1;
 
             Restart();
 
@@ -427,7 +424,7 @@ namespace MohawkGame2D
             float restartX = Input.GetMouseX();
             float restartY = Input.GetMouseY();
 
-            if (restartX <= 350 && restartX >= 250 && restartY <= 350 && restartY >= 315)
+            if (restartX <= 355 && restartX >= 245 && restartY <= 350 && restartY >= 315)
             {
                 Draw.FillColor = mouseOn;
 
