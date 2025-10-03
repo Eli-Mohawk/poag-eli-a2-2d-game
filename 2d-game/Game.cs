@@ -1,5 +1,6 @@
 ﻿// Include the namespaces (code libraries) you need below.
 using System;
+using System.ComponentModel.Design;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -133,7 +134,7 @@ namespace MohawkGame2D
                 }
 
                 else
-                {   
+                {
                     if (question2Done == false)
                     {
                         SecondQuestion();
@@ -386,6 +387,8 @@ namespace MohawkGame2D
             Text.Color = blue;
             Text.Draw("WOW! You didn't lose!", 80, 80);
 
+            playerScore = -1;
+
             Restart();
 
             didEnd = true;
@@ -397,6 +400,8 @@ namespace MohawkGame2D
             Text.Color = yellow;
             Text.Draw("Congrats! You won!", 110, 80);
 
+            playerScore = -1;
+
             Restart();
 
             didWin = true;
@@ -407,6 +412,8 @@ namespace MohawkGame2D
             Text.Size = 40;
             Text.Color = red;
             Text.Draw("You lost.", 200, 80);
+
+            playerScore = -1;
 
             Restart();
 
